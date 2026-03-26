@@ -12,7 +12,6 @@ public class OOPSBannerApp {
                 String.join("", " *****   ", "*       ", "    *    ", " ***** ")
         };
 
-        // Loop to print banner
         for (String line : banner) {
             System.out.println(line);
         }
