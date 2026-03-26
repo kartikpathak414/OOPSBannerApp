@@ -1,58 +1,78 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class OOPSBannerApp {
 
     public static void main(String[] args) {
 
-        String[] banner = {
-                String.join("", getO()[0], getO()[0], getP()[0], getS()[0]),
-                String.join("", getO()[1], getO()[1], getP()[1], getS()[1]),
-                String.join("", getO()[2], getO()[2], getP()[2], getS()[2]),
-                String.join("", getO()[3], getO()[3], getP()[3], getS()[3]),
-                String.join("", getO()[4], getO()[4], getP()[4], getS()[4]),
-                String.join("", getO()[5], getO()[5], getP()[5], getS()[5]),
-                String.join("", getO()[6], getO()[6], getP()[6], getS()[6])
-        };
+        Map<Character, CharacterPattern> patternMap = CharacterPatternMap.getPatterns();
 
-        for (String line : banner) {
+        String word = "OOPS";
+
+        for (int i = 0; i < 7; i++) {
+            StringBuilder line = new StringBuilder();
+
+            for (char ch : word.toCharArray()) {
+                line.append(patternMap.get(ch).getPattern()[i]);
+            }
+
             System.out.println(line);
         }
     }
 
-    // Method for letter O
-    public static String[] getO() {
-        return new String[]{
-                " *****   ",
-                "*     * ",
-                "*     * ",
-                "*     * ",
-                "*     * ",
-                "*     * ",
-                " *****   "
-        };
+    // Class to hold character pattern
+    static class CharacterPattern {
+        private char character;
+        private String[] pattern;
+
+        public CharacterPattern(char character, String[] pattern) {
+            this.character = character;
+            this.pattern = pattern;
+        }
+
+        public String[] getPattern() {
+            return pattern;
+        }
     }
 
-    // Method for letter P
-    public static String[] getP() {
-        return new String[]{
-                " *****   ",
-                "*     * ",
-                "*     * ",
-                " *****   ",
-                "*       ",
-                "*       ",
-                "*       "
-        };
-    }
+    // Class to manage all patterns
+    static class CharacterPatternMap {
 
-    // Method for letter S
-    public static String[] getS() {
-        return new String[]{
-                " ***** ",
-                "*     *",
-                "*      ",
-                " ***** ",
-                "      *",
-                "*     *",
-                " ***** "
-        };
+        public static Map<Character, CharacterPattern> getPatterns() {
+
+            Map<Character, CharacterPattern> map = new HashMap<>();
+
+            map.put('O', new CharacterPattern('O', new String[]{
+                    " *****   ",
+                    "*     * ",
+                    "*     * ",
+                    "*     * ",
+                    "*     * ",
+                    "*     * ",
+                    " *****   "
+            }));
+
+            map.put('P', new CharacterPattern('P', new String[]{
+                    " *****   ",
+                    "*     * ",
+                    "*     * ",
+                    " *****   ",
+                    "*       ",
+                    "*       ",
+                    "*       "
+            }));
+
+            map.put('S', new CharacterPattern('S', new String[]{
+                    " ***** ",
+                    "*     *",
+                    "*      ",
+                    " ***** ",
+                    "      *",
+                    "*     *",
+                    " ***** "
+            }));
+
+            return map;
+        }
     }
 }
