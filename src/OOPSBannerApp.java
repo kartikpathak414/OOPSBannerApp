@@ -5,74 +5,69 @@ public class OOPSBannerApp {
 
     public static void main(String[] args) {
 
-        Map<Character, CharacterPattern> patternMap = CharacterPatternMap.getPatterns();
+        // Get pattern map
+        Map<Character, String[]> patternMap = getPatternMap();
 
         String word = "OOPS";
 
+        // Loop through each row
         for (int i = 0; i < 7; i++) {
+
             StringBuilder line = new StringBuilder();
 
+            // Loop through each character in word
             for (char ch : word.toCharArray()) {
-                line.append(patternMap.get(ch).getPattern()[i]);
+
+                // Get pattern using HashMap (fast lookup)
+                String[] pattern = patternMap.get(ch);
+
+                if (pattern != null) {
+                    line.append(pattern[i]);
+                }
             }
 
             System.out.println(line);
         }
     }
 
-    // Class to hold character pattern
-    static class CharacterPattern {
-        private char character;
-        private String[] pattern;
+    // Method to create HashMap
+    public static Map<Character, String[]> getPatternMap() {
 
-        public CharacterPattern(char character, String[] pattern) {
-            this.character = character;
-            this.pattern = pattern;
-        }
+        Map<Character, String[]> map = new HashMap<>();
 
-        public String[] getPattern() {
-            return pattern;
-        }
-    }
+        // Pattern for O
+        map.put('O', new String[]{
+                " *****   ",
+                "*     * ",
+                "*     * ",
+                "*     * ",
+                "*     * ",
+                "*     * ",
+                " *****   "
+        });
 
-    // Class to manage all patterns
-    static class CharacterPatternMap {
+        // Pattern for P
+        map.put('P', new String[]{
+                " *****   ",
+                "*     * ",
+                "*     * ",
+                " *****   ",
+                "*       ",
+                "*       ",
+                "*       "
+        });
 
-        public static Map<Character, CharacterPattern> getPatterns() {
+        // Pattern for S
+        map.put('S', new String[]{
+                " ***** ",
+                "*     *",
+                "*      ",
+                " ***** ",
+                "      *",
+                "*     *",
+                " ***** "
+        });
 
-            Map<Character, CharacterPattern> map = new HashMap<>();
-
-            map.put('O', new CharacterPattern('O', new String[]{
-                    " *****   ",
-                    "*     * ",
-                    "*     * ",
-                    "*     * ",
-                    "*     * ",
-                    "*     * ",
-                    " *****   "
-            }));
-
-            map.put('P', new CharacterPattern('P', new String[]{
-                    " *****   ",
-                    "*     * ",
-                    "*     * ",
-                    " *****   ",
-                    "*       ",
-                    "*       ",
-                    "*       "
-            }));
-
-            map.put('S', new CharacterPattern('S', new String[]{
-                    " ***** ",
-                    "*     *",
-                    "*      ",
-                    " ***** ",
-                    "      *",
-                    "*     *",
-                    " ***** "
-            }));
-
-            return map;
-        }
+        return map;
     }
 }
